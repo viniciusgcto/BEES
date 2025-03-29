@@ -3,7 +3,6 @@ from airflow.operators.python_operator import PythonOperator
 from datetime import datetime, timedelta
 from pyspark.sql import SparkSession
 import requests
-
 # Função para consumir dados da API e criar DataFrame
 def fetch_and_create_dataframe():
     # Consumindo a API Open Brewery DB
