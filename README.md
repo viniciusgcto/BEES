@@ -9,11 +9,12 @@ Este projeto demonstra um pipeline de ETL usando Airflow, PySpark e Google Cloud
 
 ## Configuração
 
-1.  **Cloud Composer:**
-    * Criar um ambiente Cloud Composer.
-2.  **Google Cloud Storage (GCS):**
+1.  **Google Cloud Storage (GCS):**
     * Criar um bucket GCS para armazenar os dados das camadas bronze, silver e gold.
-    * Ajustar os caminhos no script `transform_data.py` para o bucket.
+    * Ajustar os caminhos no script `transform_data.py` para o bucket (neste caso: bees_case).
+2.  **Cloud Composer:**
+    * Criar o ambiente Cloud Composer.
+    * Configurar permissões adequadas para gravar dados no bucket GCS (bees_case).
 3.  **Airflow:**
     * Copiar o arquivo `brewery_pipeline.py` para a pasta `dags` do ambiente Cloud Composer.
     * Acessar a interface do Airflow para visualizar e executar a DAG.
@@ -21,7 +22,7 @@ Este projeto demonstra um pipeline de ETL usando Airflow, PySpark e Google Cloud
 ## Execução
 
 1.  Na interface do Airflow, localizar a DAG `brewery_pipeline`.
-2.  Clicar no botão "Trigger DAG" para executar o pipeline manualmente ou deixar ele rodar conforme agendamento diário, às 7h da manhã.
+2.  Clicar no botão "Trigger DAG" para executar o pipeline manualmente ou deixar ele rodar conforme agendamento (diário, às 7h da manhã).
 
 ## Monitoramento e Alerta
 
@@ -31,11 +32,10 @@ Este projeto demonstra um pipeline de ETL usando Airflow, PySpark e Google Cloud
 ## Testes
 
 Este projeto inclui testes unitários para verificar a funcionalidade dos scripts PySpark.
+Os testes verificam se os DataFrames são criados corretamente, se as colunas esperadas estão presentes e se as transformações e agregações são feitas conforme esperado.
 
 * Os testes estão localizados no diretório `tests/`.
-* Para executar os testes, use o seguinte comando:
+* Para executar os testes, usar o comando:
     ```bash
     python -m unittest tests/test_transform_data.py
     ```
-
-Os testes verificam se os DataFrames são criados corretamente, se as colunas esperadas estão presentes e se as transformações e agregações são feitas conforme esperado.
