@@ -31,15 +31,15 @@ def fetch_and_create_dataframe():
     df = spark.createDataFrame(data, schema=schema)
 
     # Camada Bronze (dados brutos)
-    df.write.json("gs://seu-bucket/bronze_breweries", mode='overwrite')
+    df.write.json("gs://bees_case/bronze_breweries", mode='overwrite')
 
     # Camada Prata (exemplo transformações)
     df_silver = df.select("id", "name", "brewery_type", "city", "state", "country")
-    df_silver.write.parquet("gs://seu-bucket/silver_breweries", partitionBy="state", mode='overwrite')
+    df_silver.write.parquet("gs://bees_case/silver_breweries", partitionBy="state", mode='overwrite')
 
     # Camada Ouro (exemplo agregação)
     df_gold = df_silver.groupBy("state", "brewery_type").count()
-    df_gold.write.parquet("gs://seu-bucket/gold_breweries", mode='overwrite')
+    df_gold.write.parquet("gs://bees_case/gold_breweries", mode='overwrite')
 
     spark.stop()
 
