@@ -10,6 +10,11 @@ with DAG(
     catchup=False,
 ) as dag:
     extract_transform_load = PythonOperator(
-        task_id='fetch_and_create_dataframe',
-        python_callable=fetch_and_create_dataframe,
+        task_id='fetch_and_create_dataframe',
+        python_callable=fetch_and_create_dataframe,
+        retries=3,
+        retry_delay=timedelta(minutes=5),
+        on_failure_callback=task_failure_alert,
+        email="monitoramento@bees.com",
+        email_on_failure=True,
     )
