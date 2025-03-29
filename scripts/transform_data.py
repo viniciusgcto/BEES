@@ -12,7 +12,7 @@ def fetch_and_create_dataframe():
 
     # Especificar o schema
     schema = StructType([
-        StructField("id", IntegerType(), True),
+        StructField("id", StringType(), True),
         StructField("name", StringType(), True),
         StructField("brewery_type", StringType(), True),
         StructField("street", StringType(), True),
@@ -20,8 +20,8 @@ def fetch_and_create_dataframe():
         StructField("state", StringType(), True),
         StructField("postal_code", StringType(), True),
         StructField("country", StringType(), True),
-        StructField("longitude", FloatType(), True),
-        StructField("latitude", FloatType(), True),
+        StructField("longitude", StringType(), True),
+        StructField("latitude", StringType(), True),
         StructField("phone", StringType(), True),
         StructField("website_url", StringType(), True),
         StructField("updated_at", StringType(), True),
