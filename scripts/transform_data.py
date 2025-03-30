@@ -42,11 +42,11 @@ def fetch_and_create_dataframe():
     # Camada Bronze (dados brutos)
     df.write.json("gs://bees_case/bronze_breweries", mode='overwrite')
 
-    # Camada Prata (exemplo transformações)
+    # Camada Silver (exemplo transformações)
     df_silver = df.select("id", "name", "brewery_type", "city", "state", "country")
     df_silver.write.parquet("gs://bees_case/silver_breweries", partitionBy="state", mode='overwrite')
 
-    # Camada Ouro (exemplo agregação)
+    # Camada Gold (exemplo agregação)
     df_gold = df_silver.groupBy("state", "brewery_type").count()
     df_gold.write.parquet("gs://bees_case/gold_breweries", mode='overwrite')
 
