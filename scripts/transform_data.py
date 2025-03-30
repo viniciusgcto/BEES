@@ -44,7 +44,7 @@ def fetch_and_create_dataframe():
     
         # Camada Silver (exemplo transformações)
         df_silver = df.select("id", "name", "brewery_type", "city", "state", "country", "phone", "website_url")
-        # Subtituindo nulos por "NA"
+        # Subtituindo nulos por "Not Available"
         for col_name in df_silver.columns:
             df_silver = df_silver.withColumn(col_name, when(col(col_name).isNull(), "Not Available").otherwise(col(col_name)))
         df_silver.write.parquet("gs://bees_case/silver_breweries", partitionBy="state", mode='overwrite')
