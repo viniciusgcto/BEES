@@ -45,7 +45,3 @@ Foram criados testes unitários para verificar a funcionalidade dos scripts PySp
 Os testes verificam se os DataFrames são criados corretamente, se as colunas esperadas estão presentes e se as transformações e agregações são feitas conforme esperado.
 
 * Os testes estão localizados no diretório `tests/`.
-* Para executar os testes, usar o comando:
-    ```bash
-    python -m unittest tests/test_transform_data.py
-    ```
