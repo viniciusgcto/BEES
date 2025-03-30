@@ -1,6 +1,12 @@
 # CASE de ETL BEES
 
-Este projeto demonstra um pipeline de ETL usando Airflow, PySpark e Google Cloud Storage (GCS) para processar dados da API Open Brewery DB.
+Este projeto implementa um pipeline de dados que consome a Open Brewery DB API, processa os dados com PySpark e persiste em um data lake no Google Cloud Storage (GCS) seguindo a arquitetura medallion (bronze, silver, gold). O Apache Airflow, gerenciado pelo Cloud Composer, é usado para orquestração.
+
+# Objetivo
+
+Bronze Layer: Dados brutos da API em JSON no GCS.
+Silver Layer: Dados transformados em Parquet, particionados por state.
+Gold Layer: Visão agregada com quantidade de cervejarias por brewery_type e state.
 
 ## Pré-requisitos
 
