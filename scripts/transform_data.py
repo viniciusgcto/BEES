@@ -1,7 +1,8 @@
 import requests
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, count
+from pyspark.sql.functions import col, count, when
 from pyspark.sql.types import StructType, StructField, StringType
+from airflow.models import Variable
 
 def fetch_data():
     url = "https://api.openbrewerydb.org/v1/breweries"
@@ -18,6 +19,8 @@ def fetch_data():
 
 def fetch_and_create_dataframe():
     data = fetch_data()
+    # Obter nome do bucket a partir das variáveis do Airflow
+    gcs_bucket = Variable.get("gcs_bucket")
     spark = SparkSession.builder.appName("BreweryETL").getOrCreate()
 
     schema = StructType([
@@ -60,4 +63,5 @@ def fetch_and_create_dataframe():
         spark.stop()
 
 if __name__ == "__main__":
+    gcs_bucket = Variable.get("gcs_bucket")
     fetch_and_create_dataframe()
