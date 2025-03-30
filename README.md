@@ -14,7 +14,7 @@ Conta na Google Cloud Platform (GCP) com um projeto ativo.
 Ferramentas instaladas localmente:
    Google Cloud SDK (gcloud) para interagir com a GCP.
    Python 3.8+ (versão compatível com Composer).
-   Bibliotecas Python: _requests, pyspark, google-cloud-storage_
+   Bibliotecas Python: _requests, pyspark, google-cloud-storage_.
 Dependências do Composer:
 O ambiente do Cloud Composer já inclui o Airflow, mas é preciso especificar dependências adicionais no ambiente
 Subir as dependências na aba "PyPI": _requests==2.28.1, pyspark==3.3.0, google-cloud-storage==2.5.0_
