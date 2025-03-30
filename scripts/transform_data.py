@@ -38,19 +38,21 @@ def fetch_and_create_dataframe():
     ])
 
     df = spark.createDataFrame(data, schema=schema)
-
-    # Camada Bronze (dados brutos)
-    df.write.json("gs://bees_case/bronze_breweries", mode='overwrite')
-
-    # Camada Silver (exemplo transformações)
-    df_silver = df.select("id", "name", "brewery_type", "city", "state", "country")
-    df_silver.write.parquet("gs://bees_case/silver_breweries", partitionBy="state", mode='overwrite')
-
-    # Camada Gold (exemplo agregação)
-    df_gold = df_silver.groupBy("state", "brewery_type").count()
-    df_gold.write.parquet("gs://bees_case/gold_breweries", mode='overwrite')
-
-    spark.stop()
+    try:
+        # Camada Bronze (dados brutos)
+        df.write.json("gs://bees_case/bronze_breweries", mode='overwrite')
+    
+        # Camada Silver (exemplo transformações)
+        df_silver = df.select("id", "name", "brewery_type", "city", "state", "country")
+        df_silver.write.parquet("gs://bees_case/silver_breweries", partitionBy="state", mode='overwrite')
+    
+        # Camada Gold (exemplo agregação)
+        df_gold = df_silver.groupBy("state", "brewery_type").count()
+        df_gold.write.parquet("gs://bees_case/gold_breweries", mode='overwrite')
+    except Exception as e:
+        print(f"Erro durante operação de escrita: {e}")
+    finally:
+        spark.stop()
 
 if __name__ == "__main__":
     fetch_and_create_dataframe()
