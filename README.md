@@ -4,20 +4,19 @@ Este projeto implementa um pipeline de dados que consome a Open Brewery DB API, 
 
 ## Objetivo
 
-Camada Bronze: Dados brutos da API em JSON no GCS.
-Camada Silver: Dados transformados em Parquet, particionados por "state", manter só as colunas desejadas, alterando nulos para "Not Available".
-Camada Gold: Visão agregada dos dados de cervejarias por estado e tipo, contando o número de cervejarias em cada grupo, e ordenando os resultados por essa contagem, em ordem decrescente.
+* Camada Bronze: Dados brutos da API em JSON no GCS.
+* Camada Silver: Dados transformados em Parquet, particionados por "state", manter só as colunas desejadas, alterando nulos para "Not Available".
+* Camada Gold: Visão agregada dos dados de cervejarias por estado e tipo, contando o número de cervejarias em cada grupo, e ordenando os resultados por essa contagem, em ordem decrescente.
 
 ## Pré-requisitos
 
-Conta na Google Cloud Platform (GCP) com um projeto ativo.
-Ferramentas instaladas localmente:
-   Google Cloud SDK (gcloud) para interagir com a GCP.
-   Python 3.8+ (versão compatível com Composer).
-   Bibliotecas Python: _requests, pyspark, google-cloud-storage_.
-Dependências do Composer:
-O ambiente do Cloud Composer já inclui o Airflow, mas é preciso especificar dependências adicionais no ambiente
-Subir as dependências na aba "PyPI": _requests==2.28.1, pyspark==3.3.0, google-cloud-storage==2.5.0_
+* Conta na Google Cloud Platform (GCP) com um projeto ativo.
+* Ferramentas instaladas localmente:
+   * Google Cloud SDK (gcloud) para interagir com a GCP.
+   * Python 3.8+ (versão compatível com Composer).
+   * Bibliotecas Python: _requests, pyspark, google-cloud-storage_.
+* Dependências do Composer:
+   * O ambiente do Cloud Composer já inclui o Airflow, mas é preciso especificar dependências adicionais no ambiente. Subir as dependências na aba "PyPI": _requests==2.28.1, pyspark==3.3.0, google-cloud-storage==2.5.0_.
 
 ## Configuração GCP
 
