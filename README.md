@@ -23,7 +23,7 @@ Este projeto demonstra um pipeline de ETL usando Airflow, PySpark e Google Cloud
 
 1.  Na interface do Airflow, localizar a DAG `brewery_pipeline`.
 2.  Clicar em "Trigger DAG" para executar o pipeline manualmente ou deixar ele rodar conforme agendamento (diário, às 7h da manhã).
-3.  Ao iniciar a execução, irá trazer os dados brutos da API para camada bronze no bucket do GCS.
+3.  Ao iniciar a execução, o script irá buscar os dados brutos na API, criar o schema para gerar o dataframe e escrever na camada bronze (bucket bees_case no GCS) no formato json.
 4.  Na sequência, irá selecionar as colunas que serão mantidas, substituir registros nulos por 'Not Available' e então escrever na camada silver, particionando pelo campo 'state'.
 5.  Por fim, na camada gold, agrega-se os dados de cervejarias por estado e tipo, contando o número de cervejarias em cada grupo, e ordena os resultados por essa contagem, mas em ordem decrescente.
 
