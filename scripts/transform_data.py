@@ -50,8 +50,10 @@ def fetch_and_create_dataframe():
         df_silver.write.parquet("gs://bees_case/silver_breweries", partitionBy="state", mode='overwrite')
     
         # Camada Gold (exemplo agregação)
-        df_gold = df_silver.groupBy("state", "brewery_type").count()
-        df_gold.write.parquet("gs://bees_case/gold_breweries", mode='overwrite')
+        df_gold = df_silver.groupBy("state", "brewery_type").agg(
+            count("*").alias("count")
+        ).select("state", "brewery_type", "count").orderBy(col("count").desc())
+        df_gold.write.parquet("gs://bees_case/gold_breweries", partitionBy="state", mode='overwrite')
     except Exception as e:
         print(f"Erro durante operação de escrita: {e}")
     finally:
