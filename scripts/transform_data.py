@@ -21,8 +21,14 @@ def fetch_and_create_dataframe():
     data = fetch_data()
     # Obter nome do bucket a partir das variáveis do Airflow
     gcs_bucket = Variable.get("gcs_bucket")
-    spark = SparkSession.builder.appName("BreweryETL").getOrCreate()
-
+    # Criar sessão Spark
+    spark = SparkSession.builder \
+    .appName("BreweryETL") \
+    .config("spark.jars.packages", "com.google.cloud.bigdataoss:gcs-connector:hadoop3-2.2.15") \
+    .config("spark.hadoop.fs.gs.impl", "com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystem") \
+    .config("spark.hadoop.google.cloud.auth.service.account.enable", "true") \
+    .getOrCreate()
+    # Montar Schema
     schema = StructType([
         StructField("id", StringType(), True),
         StructField("name", StringType(), True),
