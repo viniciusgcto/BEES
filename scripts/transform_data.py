@@ -1,16 +1,25 @@
 import requests
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col
-from pyspark.sql.types import StructType, StructField, StringType, IntegerType, FloatType
+from pyspark.sql.types import StructType, StructField, StringType
+
+def fetch_data():
+    url = "https://api.openbrewerydb.org/v1/breweries"
+    try:
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()
+        data = response.json()
+        if not data:
+            raise ValueError("Resposta da API está vazia")
+        return data
+    except requests.exceptions.RequestException as e:
+        print(f"Erro ao buscar dados da API: {e}")
+        return None
 
 def fetch_and_create_dataframe():
-    url = "https://api.openbrewerydb.org/breweries"
-    response = requests.get(url)
-    data = response.json()
-
+    data = fetch_data()
     spark = SparkSession.builder.appName("BreweryETL").getOrCreate()
 
-    # Especificar o schema
     schema = StructType([
         StructField("id", StringType(), True),
         StructField("name", StringType(), True),
