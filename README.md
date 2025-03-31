@@ -25,7 +25,7 @@ Este projeto implementa um pipeline de dados que consome a Open Brewery DB API, 
 2.  **Cloud Composer:**
     * No console GCP, em "Composer" > "Create Environment". Nome: brewery-pipeline. Localização: mesma do bucket (ex.: "us-central1"). Versão do Airflow: 2.x. Python: 3.8 ou superior. Deixar as opções padrão para máquina (ex.: 3 nós pequenos).
 3.  **Airflow:**
-    * Após criação do ambiente, acessar UI do Airflow, em "Admin" > "Variables" e adicionar: gcs_bucket: "bees_case", gcs_prefix: data (prefixo base para camadas bronze, silver, gold).
+    * Após criação do ambiente, acessar UI do Airflow, em "Admin" > "Variables" e adicionar: gcs_bucket: "bees_case", gcs_prefix: data (prefixo base das camadas, ex: data/bronze, data/silver e data/gold).
     * O Composer precisa de uma conta de serviço para acessar o GCS. Para identificar a conta, acessar o console GCP, ir em "Composer" > "Environments" > clicar no ambiente criado > aba "Details". Anotar o "Service Account" listado.
     * Adicionar Permissões ao Bucket: Em "Cloud Storage" > clicar no bucket > aba "Permissions". Clicar em "Add" e inserir o e-mail da conta de serviço. Atribuir a role Storage Object Admin (permissão total para ler/escrever).
     * O DAG será sincronizado de um bucket GCS associado ao Composer (criado automaticamente). Encontre o bucket do Composer: No console, em "Composer" > "Environment Details" > "DAGs Folder". Fazer o upload do arquivo "brewery_pipeline.py" para a pasta de DAGs.
